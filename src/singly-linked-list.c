@@ -152,6 +152,32 @@ void sll_remove_all(int value) {
 	END_BREAK("REMOVE ALL");
 }
 
+int sll_get_head() {
+	BREAK("GET HEAD");
+	if(head == NULL) {
+		warn("%s", "Head is null, returning -1");
+		END_BREAK("GET HEAD");
+		return -1;
+	}
+	success("%s","Value exists");
+	END_BREAK("GET HEAD");
+	return head->value;
+}
+
+int sll_get_tail() {
+	BREAK("GET TAIL");
+	if(head == NULL) {
+		warn("%s", "Head is null, returning -1");
+		END_BREAK("GET TAIL");
+		return -1;
+	}
+	Node* ptr = head;
+	while(ptr->next) ptr = ptr->next;
+	success("%s","Value exists");
+	END_BREAK("GET TAIL");
+	return ptr->value;
+}
+
 void sll_print() {
 	BREAK("PRINT");
 	if(head == NULL) {

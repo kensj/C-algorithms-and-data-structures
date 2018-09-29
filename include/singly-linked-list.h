@@ -16,6 +16,10 @@ Node* sll_insert(int value);
 int sll_poll_head();
 // Remove and return tail
 int sll_poll_tail();
+// Get first element
+int sll_get_head();
+// Get last element
+int sll_get_tail();
 // Remove first occurrence of value
 void sll_remove(int value);
 // Remove all occurrences of value
