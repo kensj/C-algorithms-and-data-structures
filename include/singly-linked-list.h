@@ -2,16 +2,16 @@
 #include <stdbool.h>
 
 // Store our node
-typedef struct Node {
-	struct Node* next;
+typedef struct LinkedListNode {
+	struct LinkedListNode* next;
 	int value;
-} __attribute__ ((__packed__)) Node;
+} __attribute__ ((__packed__)) LinkedListNode;
 
 // Store our head
-extern Node* head;
+extern LinkedListNode* head;
 
 // Insert value and return node 
-Node* sll_insert(int value);
+LinkedListNode* sll_insert(int value);
 // Remove and return head
 int sll_poll_head();
 // Remove and return tail
