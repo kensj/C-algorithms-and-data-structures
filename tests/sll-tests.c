@@ -6,19 +6,19 @@
 #include <string.h>
 #include <unistd.h>*/
 
-LinkedListNode* head;
+Node* head;
 
 Test(sf_memsuite, sll_first_value, .fini = sll_free) {
-	LinkedListNode* node = sll_insert(10);
+	Node* node = sll_insert(10);
   	cr_assert(node->value == 10, "Value not equal!");
   	cr_assert(node->next == NULL, "List size greater than 1!");
   	cr_assert(head == node, "Head pointer is incorrect!");
 }
 
 Test(sf_memsuite, sll_three_values, .fini = sll_free) {
-	LinkedListNode* node3 = sll_insert(10);
-	LinkedListNode* node2 = sll_insert(20);
-	LinkedListNode* node1 = sll_insert(30);
+	Node* node3 = sll_insert(10);
+	Node* node2 = sll_insert(20);
+	Node* node1 = sll_insert(30);
   	cr_assert(node1->value == 30, "First value incorrect!");
   	cr_assert(node1->next == node2, "First's next element is not the second!");
   	cr_assert(node2->value == 20, "Second value incorrect!");

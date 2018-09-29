@@ -1,23 +1,23 @@
 #include "singly-linked-list.h"
 
-LinkedListNode* head;
+Node* head;
 
-LinkedListNode* sll_insert(int value) {
+Node* sll_insert(int value) {
 	BREAK("INSERT");
 	debug("Inserting value: %d", value);
-	LinkedListNode* newLinkedListNode = malloc(sizeof(struct LinkedListNode));
-	newLinkedListNode->value = value;
+	Node* newNode = malloc(sizeof(struct Node));
+	newNode->value = value;
 	if(head == NULL) {
 		info("%s", "Setting as first element of list");
-		newLinkedListNode->next = NULL;
+		newNode->next = NULL;
 	}
 	else {
 		info("%s", "Pushing to head of list");
-		newLinkedListNode->next = head;
+		newNode->next = head;
 	}
-	head = newLinkedListNode;
+	head = newNode;
 	END_BREAK("INSERT");
-	return newLinkedListNode;
+	return newNode;
 }
 
 int sll_poll_head() {
@@ -35,7 +35,7 @@ int sll_poll_head() {
 		END_BREAK("POLL HEAD");
 		return ret;
 	}
-	LinkedListNode* ptr = head;
+	Node* ptr = head;
 	head = head->next;
 	int ret = ptr->value;
 	free(ptr);
@@ -59,8 +59,8 @@ int sll_poll_tail() {
 		return ret;
 	}
 
-	LinkedListNode* ptr = head;
-	LinkedListNode* newLast = head;
+	Node* ptr = head;
+	Node* newLast = head;
 	while(ptr->next) {
 		newLast = ptr;
 		ptr = ptr->next;
@@ -81,7 +81,7 @@ bool sll_contains(int value) {
 		END_BREAK("CONTAINS");
 		return false;
 	}
-	LinkedListNode* ptr = head;
+	Node* ptr = head;
 	while(ptr) {
 		if(ptr->value == value) {
 			success("Found Value: %d", value);
@@ -103,14 +103,14 @@ void sll_remove(int value) {
 		return;	
 	}
 	if(head->value == value) {
-		LinkedListNode* ptr = head;
+		Node* ptr = head;
 		head = head->next;
 		free(ptr);
 		END_BREAK("REMOVE");
 		return;	
 	}
-	LinkedListNode* ptr = head;
-	LinkedListNode* previous = head;
+	Node* ptr = head;
+	Node* previous = head;
 	while(ptr->next) {
 		previous = ptr;
 		ptr = ptr->next;
@@ -128,7 +128,7 @@ void sll_remove(int value) {
 void sll_remove_all(int value) {
 	BREAK("REMOVE ALL");
 	while(head && head->value == value) {
-		LinkedListNode* ptr = head;
+		Node* ptr = head;
 		head = head->next;
 		free(ptr);
 	}
@@ -139,7 +139,7 @@ void sll_remove_all(int value) {
 		return;	
 	}
 
-	LinkedListNode* ptr = head;
+	Node* ptr = head;
 	while(ptr) {
 		if(ptr->next && ptr->next->value == value) {
 			debug("Found occurrence: %d", value);
@@ -171,7 +171,7 @@ int sll_get_tail() {
 		END_BREAK("GET TAIL");
 		return -1;
 	}
-	LinkedListNode* ptr = head;
+	Node* ptr = head;
 	while(ptr->next) ptr = ptr->next;
 	success("%s","Value exists");
 	END_BREAK("GET TAIL");
@@ -186,7 +186,7 @@ void sll_print() {
 		return;
 	}
 	printf("%d", head->value);
-	LinkedListNode* ptr = head->next;
+	Node* ptr = head->next;
 	while(ptr) {
 		printf(" -> %d", ptr->value);
 		ptr = ptr->next;
@@ -198,7 +198,7 @@ void sll_print() {
 void sll_free() {
 	BREAK("FREE");
 	while(head) {
-		LinkedListNode* ptr = head->next;
+		Node* ptr = head->next;
 		debug("Freeing node with value: %d", head->value);
 		free(head);
 		head = ptr;
