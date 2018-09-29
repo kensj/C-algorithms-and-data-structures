@@ -6,13 +6,13 @@
 #include <string.h>
 #include <unistd.h>*/
 
-Test(sf_memsuite, First_value, .fini = sll_free) {
+Test(sf_memsuite, sll_first_value, .fini = sll_free) {
 	Node* node = sll_insert(10);
   	cr_assert(node->value == 10, "Value not equal!");
   	cr_assert(node->next == NULL, "List size greater than 1!");
 }
 
-Test(sf_memsuite, Three_values, .fini = sll_free) {
+Test(sf_memsuite, sll_three_values, .fini = sll_free) {
 	Node* node3 = sll_insert(10);
 	Node* node2 = sll_insert(20);
 	Node* node1 = sll_insert(30);
