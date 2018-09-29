@@ -77,6 +77,7 @@ int sll_poll_tail() {
 bool sll_contains(int value) {
 	BREAK("CONTAINS");
 	if(head == NULL) {
+		warn("%s", "List is empty, returning false");
 		END_BREAK("CONTAINS");
 		return false;
 	}
@@ -92,6 +93,63 @@ bool sll_contains(int value) {
 	warn("Could not find value: %d", value);
 	END_BREAK("CONTAINS");
 	return false;
+}
+
+void sll_remove(int value) {
+	BREAK("REMOVE");
+	if(head == NULL) {
+		warn("%s", "List is empty, removing nothing");
+		END_BREAK("REMOVE");
+		return;	
+	}
+	if(head->value == value) {
+		Node* ptr = head;
+		head = head->next;
+		free(ptr);
+		END_BREAK("REMOVE");
+		return;	
+	}
+	Node* ptr = head;
+	Node* previous = head;
+	while(ptr->next) {
+		previous = ptr;
+		ptr = ptr->next;
+		if(ptr->value == value) {
+			debug("Found first occurrence: %d", value);
+			debug("Previous value is: %d", previous->value);
+			previous->next = ptr->next;
+			free(ptr);
+			break;
+		}
+	}
+	END_BREAK("REMOVE");
+}
+
+void sll_remove_all(int value) {
+	BREAK("REMOVE ALL");
+	while(head && head->value == value) {
+		Node* ptr = head;
+		head = head->next;
+		free(ptr);
+	}
+
+	if(head == NULL) {
+		warn("%s", "List is empty, removing nothing");
+		END_BREAK("REMOVE ALL");
+		return;	
+	}
+
+	Node* ptr = head;
+	while(ptr) {
+		if(ptr->next && ptr->next->value == value) {
+			debug("Found occurrence: %d", value);
+			debug("Previous value is: %d", ptr->value);
+			ptr->next = ptr->next->next;
+			free(ptr->next);
+		}
+		ptr = ptr->next;
+	}
+	END_BREAK("REMOVE ALL");
 }
 
 void sll_print() {

@@ -77,3 +77,91 @@ Test(sf_memsuite, sll_contains_last, .fini = sll_free) {
 	bool contains = sll_contains(10);
 	cr_assert(contains == true, "List should contain value!");
 }
+
+Test(sf_memsuite, sll_remove_empty, .fini = sll_free) {
+	sll_remove(10);
+	bool contains = sll_contains(10);
+	cr_assert(contains == false, "List should not contain value!");
+}
+
+Test(sf_memsuite, sll_remove_single, .fini = sll_free) {
+	sll_insert(10);
+	sll_remove(10);
+	bool contains = sll_contains(10);
+	cr_assert(contains == false, "List should not contain value!");
+}
+
+Test(sf_memsuite, sll_remove_middle, .fini = sll_free) {
+	sll_insert(10);
+	sll_insert(20);
+	sll_insert(30);
+	sll_remove(20);
+	sll_print();
+	bool contains = sll_contains(20);
+	cr_assert(contains == false, "List should not contain value!");
+}
+
+Test(sf_memsuite, sll_remove_first, .fini = sll_free) {
+	sll_insert(10);
+	sll_insert(20);
+	sll_insert(30);
+	sll_remove(30);
+	sll_print();
+	bool contains = sll_contains(30);
+	cr_assert(contains == false, "List should not contain value!");
+}
+
+Test(sf_memsuite, sll_remove_last, .fini = sll_free) {
+	sll_insert(10);
+	sll_insert(20);
+	sll_insert(30);
+	sll_remove(10);
+	sll_print();
+	bool contains = sll_contains(10);
+	cr_assert(contains == false, "List should not contain value!");
+}
+
+Test(sf_memsuite, sll_remove_all_empty, .fini = sll_free) {
+	sll_remove_all(10);
+	bool contains = sll_contains(10);
+	cr_assert(contains == false, "List should not contain value!");
+}
+
+Test(sf_memsuite, sll_remove_all_repeating_head, .fini = sll_free) {
+	sll_insert(10);
+	sll_insert(10);
+	sll_insert(10);
+	sll_remove_all(10);
+	sll_print();
+	bool contains = sll_contains(10);
+	cr_assert(contains == false, "List should not contain value!");
+}
+
+Test(sf_memsuite, sll_remove_all_middle, .fini = sll_free) {
+	sll_insert(20);
+	sll_insert(10);
+	sll_insert(10);
+	sll_insert(10);
+	sll_insert(20);
+	sll_remove_all(10);
+	sll_print();
+	bool contains = sll_contains(10);
+	cr_assert(contains == false, "List should not contain value!");
+}
+
+
+Test(sf_memsuite, sll_remove_all_head_and_tail, .fini = sll_free) {
+	sll_insert(20);
+	sll_insert(20);
+	sll_insert(20);
+	sll_insert(10);
+	sll_insert(10);
+	sll_insert(10);
+	sll_insert(20);
+	sll_insert(20);
+	sll_insert(20);
+	sll_remove_all(20);
+	sll_print();
+	bool contains = sll_contains(20);
+	cr_assert(contains == false, "List should not contain value!");
+}

@@ -16,6 +16,10 @@ Node* sll_insert(int value);
 int sll_poll_head();
 // Remove and return tail
 int sll_poll_tail();
+// Remove first occurrence of value
+void sll_remove(int value);
+// Remove all occurrences of value
+void sll_remove_all(int value);
 // Print the entire list
 void sll_print();
 // Free the entire list
