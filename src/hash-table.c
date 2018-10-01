@@ -16,6 +16,34 @@ hash_table* ht_new_table() {
 	return table;
 }
 
+u_int next_prime() {
+	u_int i = prime + 2;
+	while(!is_prime(i)) i+= 2;
+	return i;
+}
+
+u_int prev_prime() {
+	u_int i = prime - 2;
+	while(!is_prime(i)) i-= 2;
+	if(i < 53) return 53;
+	return i;
+}
+
+bool is_prime(u_int i) {
+	for(int x=2; x<sqrt(i * 1.0); x++) {
+		if(i%x == 0) return false;
+	}
+	return true;
+}
+
+void ht_grow_table() {
+	table->items = realloc(table->items, sizeof(hash_item*) * next_prime());
+}
+
+void ht_shrink_table() {
+	table->items = realloc(table->items, sizeof(hash_item*) * prev_prime());
+}
+
 void ht_put(char* key, char* value) {
 	BREAK("NEW ITEM");
 	if(table == NULL) table = ht_new_table();
@@ -28,6 +56,7 @@ void ht_put(char* key, char* value) {
 		i->value = strdup(value);
 		i->next = NULL;
 		table->items[index] = i;
+		table->count++;
 	}
 	else {
 		warn("%s", "Collision detected, adding to linked list");
@@ -38,6 +67,7 @@ void ht_put(char* key, char* value) {
 				info("%s", "Key already exists, updating");
 				free(i->value);
 				i->value = strdup(value);
+				if(table->count == table->size) ht_grow_table();
 				success("Successfully inserted: key=\"%s\" | value=\"%s\"", key, value);
 				END_BREAK("NEW ITEM");
 				return;
@@ -51,6 +81,7 @@ void ht_put(char* key, char* value) {
 		new_item->next = NULL;
 		previous->next = new_item;
 	}
+	if(table->count == table->size) ht_grow_table();
 	success("Successfully inserted: key=\"%s\" | value=\"%s\"", key, value);
 	END_BREAK("NEW ITEM");
 }
@@ -109,6 +140,8 @@ void ht_remove(char* key) {
 		previous = item;
 		item = item->next;
 	}
+	if(table->items[index] == NULL) table->count--;
+	//if(table->count < table->size/2) ht_shrink_table();
 	success("%s", "Successfully removed item");
 	END_BREAK("DELETE ITEM");
 }
