@@ -131,7 +131,8 @@ void ht_remove(char* key) {
 	while(item) {
 		if(strcmp(item->key, key) == 0) {
 			info("%s", "Item found, removing");
-			previous->next = item->next;
+			if(previous != item) previous->next = item->next;
+			else table->items[index] = item->next;
 			free(item->key);
 			free(item->value);
 			free(item);
@@ -157,8 +158,6 @@ void ht_delete_table() {
 			free(item);
 			item = next;		
 		}
-		//debug("Deleting key: %s", item->key);
-		//
 	}
 	free(table->items);
 	free(table);

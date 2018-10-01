@@ -7,7 +7,7 @@
 #include <unistd.h>*/
 
 Node* head;
-
+/*
 Test(sf_memsuite, sll_first_value, .fini = sll_free) {
 	Node* node = sll_insert(10);
   	cr_assert(node->value == 10, "Value not equal!");
@@ -217,3 +217,4 @@ Test(sf_memsuite, sll_get_tail_many, .fini = sll_free) {
 	int value = sll_get_tail();
 	cr_assert(value == 10, "List should contain value!");
 }
+*/
