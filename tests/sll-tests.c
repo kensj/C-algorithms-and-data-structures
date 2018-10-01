@@ -15,6 +15,7 @@ Test(sf_memsuite, sll_first_value, .fini = sll_free) {
   	cr_assert(head == node, "Head pointer is incorrect!");
 }
 
+
 Test(sf_memsuite, sll_three_values, .fini = sll_free) {
 	Node* node3 = sll_insert(10);
 	Node* node2 = sll_insert(20);
@@ -159,6 +160,7 @@ Test(sf_memsuite, sll_remove_all_middle, .fini = sll_free) {
 	sll_insert(10);
 	sll_insert(10);
 	sll_insert(20);
+	sll_print();
 	sll_remove_all(10);
 	sll_print();
 	bool contains = sll_contains(10);

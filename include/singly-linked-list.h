@@ -4,7 +4,7 @@
 // Store our node
 typedef struct Node {
 	struct Node* next;
-	int value;
+	u_int value;
 } __attribute__ ((__packed__)) Node;
 
 // Store our head

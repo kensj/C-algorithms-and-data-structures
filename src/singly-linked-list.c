@@ -144,10 +144,11 @@ void sll_remove_all(int value) {
 		if(ptr->next && ptr->next->value == value) {
 			debug("Found occurrence: %d", value);
 			debug("Previous value is: %d", ptr->value);
-			ptr->next = ptr->next->next;
+			Node* next_next = ptr->next->next;
 			free(ptr->next);
+			ptr->next = next_next;
 		}
-		ptr = ptr->next;
+		else ptr = ptr->next;
 	}
 	END_BREAK("REMOVE ALL");
 }
