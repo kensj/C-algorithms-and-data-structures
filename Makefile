@@ -19,7 +19,7 @@ CFLAGS := -Wall -Werror
 DFLAGS := -g -DDEBUG -DCOLOR
 STD := -std=gnu11
 TEST_LIB := -lcriterion
-LIBS := -lreadline #-pthread -ljansson
+LIBS := -lm #-lreadline -pthread -ljansson
 
 CFLAGS += $(STD)
 
@@ -36,10 +36,10 @@ setup:
 	mkdir -p bin build
 
 $(EXEC): $(ALL_OBJF)
-	$(CC) $^ -o $(BIND)/$@
+	$(CC) $^ -o $(BIND)/$@ $(LIBS)
 
 $(TEST_EXEC): $(FUNC_FILES)
-	$(CC) $(CFLAGS) $(INC) $(FUNC_FILES) $(TEST_SRC) $(TEST_LIB) -o $(BIND)/$@
+	$(CC) $(CFLAGS) $(INC) $(FUNC_FILES) $(TEST_SRC) $(TEST_LIB) -o $(BIND)/$@ $(LIBS)
 
 $(BLDD)/%.o: $(SRCD)/%.c
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
